@@ -55,7 +55,9 @@ WITH
     trafficSource.source AS traffic_source_source,
     trafficSource.medium AS traffic_source_medium,
     trafficSource.keyword AS traffic_source_keyword,
-    trafficSource.adContent AS traffic_source_ad_content
+    trafficSource.adContent AS traffic_source_ad_content,
+    MAX(IF(customDimensions.index=1,customDimensions.value,NULL)) WITHIN RECORD AS session_custom_dimension_1,
+    MAX(IF(customDimensions.index=2,customDimensions.value,NULL)) WITHIN RECORD AS session_custom_dimension_2
   FROM
     {{ ref('google_analytics_sample')}}
    )
